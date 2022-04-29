@@ -7,6 +7,8 @@ app_name = 'api_v1'
 router = DefaultRouter()
 router.register('resturants', views.ResturantViewSet)
 router.register('tags', views.TgagsViewSet)
+router.register('foods', views.FoodsViewSet)
+router.register('foodtypes', views.FoodTypeViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
