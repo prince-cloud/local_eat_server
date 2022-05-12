@@ -8,7 +8,10 @@ router = DefaultRouter()
 router.register('resturants', views.ResturantViewSet)
 router.register('tags', views.TgagsViewSet)
 router.register('foods', views.FoodsViewSet)
-router.register('foodtypes', views.FoodTypeViewSet)
+router.register('food_menus', views.FoodMenuViewSet)
+router.register('grocry_shop', views.GroceryShopViewSet)
+router.register('categories', views.CategoriesViewSet)
+router.register('groceries', views.GroceriesViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

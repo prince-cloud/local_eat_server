@@ -14,30 +14,36 @@ class TagsSerializer(serializers.ModelSerializer):
             "id",
             "tag",
         )
-class FoodTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = service_models.FoodType
-        fields  = (
-            "id",
-            "type",
-        )
 
 class FoodSerializer(serializers.ModelSerializer):
-    type = FoodTypeSerializer()
+    #food_menu = FoodMenuSerializer()
     class Meta:
         model = service_models.Food
         fields = (
             "id",
-            "type",
             "name",
             "price",
             "description",
             "size",
+            #"food_menu"
+        )
+
+class FoodMenuSerializer(serializers.ModelSerializer):
+    foods = FoodSerializer(read_only=True, many=True)
+    class Meta:
+        model = service_models.FoodMenu
+        fields  = (
+            "id",
+            "resturant",
+            "name",
+            "image",
+            "foods",
         )
 
 class ResturantSerializer(serializers.ModelSerializer):
     tags = TagsSerializer(read_only=True, many=True)
-    foods = FoodSerializer(read_only=True, many=True)
+    #foods = FoodSerializer(read_only=True, many=True)
+    food_menu = FoodMenuSerializer(read_only=True, many=True)
     class Meta:
         model = service_models.Resturant
         fields = (
@@ -46,7 +52,43 @@ class ResturantSerializer(serializers.ModelSerializer):
             "name",
             "image",
             "tags",
-            "foods",
+            #"foods",
+            "food_menu",
             "date_created",
         )
 
+class GroceriesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = service_models.Groceries
+        fields = (
+            "id",
+            "grocery_shop",
+            "name",
+            "category",
+            "price",
+            "description",
+            "image",
+        )
+
+class GroceryShopSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = service_models.GroceryShop
+        fields = (
+            "id",
+            "owner",
+            "name",
+            'image',
+            "phone",
+            "email",
+            'location',
+            'groceries',
+        )
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = configuration_models.Category
+        fields = (
+            "id",
+            "name",
+        )
